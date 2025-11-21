@@ -3,6 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PonenteModule } from './ponente/ponente.module';
+import { AuditorioModule } from './auditorio/auditorio.module';
+import { AsistenteModule } from './asistente/asistente.module';
+import { EventoModule } from './evento/evento.module';
+import { PonenteEntity } from './ponente/ponente.entity/ponente.entity';
+import { AuditorioEntity } from './auditorio/auditorio.entity/auditorio.entity';
+import { EventoEntity } from './evento/evento.entity/evento.entity';
+import { AsistenteEntity } from './asistente/asistente.entity/asistente.entity';
+
 
 @Module({
   imports: [
@@ -15,8 +24,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true, // SOLO EN DESARROLLO
-    })
+      synchronize: true,
+      entities: [PonenteEntity, AuditorioEntity, EventoEntity, AsistenteEntity]
+    }),
+    PonenteModule,
+    AuditorioModule,
+    AsistenteModule,
+    EventoModule
   ],
   controllers: [AppController],
   providers: [AppService],
